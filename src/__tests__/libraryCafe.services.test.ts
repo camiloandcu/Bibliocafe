@@ -78,7 +78,9 @@ describe('LibraryCafe Services Testing', () => {
     const sortedLibraryCafes = createdLibraryCafes.sort(
       (a, b) => b.createdAt.getDate() - a.createdAt.getDate(),
     )
-    expect(libraryCafes.map((libraryCafe) => libraryCafe.createdAt.getDate())).toEqual(
+    expect(
+      libraryCafes.map((libraryCafe) => libraryCafe.createdAt.getDate()),
+    ).toEqual(
       sortedLibraryCafes.map((libraryCafe) => libraryCafe.createdAt.getDate()),
     )
   })
@@ -116,10 +118,10 @@ describe('LibraryCafe Services Testing', () => {
     const updateFields = {
       name: 'The Silent Scribe',
     }
-    const updatedDocument = await updateLibraryCafeById(
+    const updatedDocument = (await updateLibraryCafeById(
       libraryCafe._id.toString(),
       updateFields,
-    ) as LibraryCafeDocument
+    )) as LibraryCafeDocument
     expect(updatedDocument.name).toBe(updateFields.name)
   })
 
