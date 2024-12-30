@@ -2,14 +2,14 @@ import mongoose, { Schema, Document } from 'mongoose'
 
 export type LibraryCafe = {
   name: string
-  location: string
+  location?: string
   owner: string
-  description: string
+  description?: string
   menu: string[]
   books: string[]
 }
 
-export interface LibraryCafeDocument extends LibraryCafe, Document {
+export interface LibraryCafeDocument extends LibraryCafe, Document<mongoose.Types.ObjectId> {
   updatedAt: Date
   createdAt: Date
 }
@@ -26,5 +26,8 @@ const LibraryCafeSchema: Schema = new Schema<LibraryCafeDocument>(
   { timestamps: true },
 )
 
-const libraryCafeModel = mongoose.model<LibraryCafeDocument>('LibraryCafe', LibraryCafeSchema)
+const libraryCafeModel = mongoose.model<LibraryCafeDocument>(
+  'LibraryCafe',
+  LibraryCafeSchema,
+)
 export default libraryCafeModel

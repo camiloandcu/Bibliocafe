@@ -16,7 +16,7 @@ describe('LibraryCafe Model Testing', () => {
     await testDatabaseDisconnect()
   })
 
-  test('Create LibraryCafe', async () => {
+  test('Creating with LibraryCafe Model', async () => {
     const libraryCafe: LibraryCafe = {
       name: faker.company.name(),
       location: faker.location.city(),
