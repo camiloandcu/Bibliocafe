@@ -1,4 +1,4 @@
-import libraryCafeModel, { LibraryCafe } from '../db/models/libraryCafe.model'
+import libraryCafeModel, { LibraryCafe } from '../db/models/libraryCafe.model.js'
 import { SortOrder } from 'mongoose'
 
 export async function createLibraryCafe(libraryCafe: LibraryCafe) {
@@ -29,10 +29,10 @@ export async function getLibraryCafeById(id: string) {
   return await libraryCafeModel.findById(id)
 }
 
-export async function updateLibraryCafeById(id: string, libraryCafe: Partial<LibraryCafe>) {
+export async function updateLibraryCafe(id: string, libraryCafe: Partial<LibraryCafe>) {
   return await libraryCafeModel.findByIdAndUpdate(id, libraryCafe, { new: true })
 }
 
-export async function deleteLibraryCafeById(id: string) {
+export async function deleteLibraryCafe(id: string) {
   return await libraryCafeModel.findByIdAndDelete(id)
 }

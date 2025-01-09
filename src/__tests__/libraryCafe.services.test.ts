@@ -9,12 +9,12 @@ import libraryCafeModel, {
 } from '../db/models/libraryCafe.model'
 import {
   createLibraryCafe,
-  deleteLibraryCafeById,
+  deleteLibraryCafe,
   getLibraryCafeById,
   listAllLibraryCafes,
   listLibraryCafesByLocation,
   listLibraryCafesByOwner,
-  updateLibraryCafeById,
+  updateLibraryCafe,
 } from '../services/libraryCafe.services'
 import libraryCafeMocks from '../__mocks__/libraryCafe.json'
 import mongoose from 'mongoose'
@@ -118,7 +118,7 @@ describe('LibraryCafe Services Testing', () => {
     const updateFields = {
       name: 'The Silent Scribe',
     }
-    const updatedDocument = (await updateLibraryCafeById(
+    const updatedDocument = (await updateLibraryCafe(
       libraryCafe._id.toString(),
       updateFields,
     )) as LibraryCafeDocument
@@ -127,7 +127,7 @@ describe('LibraryCafe Services Testing', () => {
 
   test('Should delete LibraryCafe by id', async () => {
     const libraryCafe = createdLibraryCafes[0]
-    await deleteLibraryCafeById(libraryCafe._id.toString())
+    await deleteLibraryCafe(libraryCafe._id.toString())
     const deletedLibraryCafe = await libraryCafeModel.findById(libraryCafe._id)
     expect(deletedLibraryCafe).toBeNull()
   })

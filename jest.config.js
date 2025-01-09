@@ -9,5 +9,8 @@ export default {
       },
     ],
   },
+  moduleNameMapper: {
+    '(.+)\\.js': '$1',
+  },
   verbose: true,
 }
