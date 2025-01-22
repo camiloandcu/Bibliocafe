@@ -4,7 +4,6 @@ export function CreateLibraryCafe() {
       style={{
         fontFamily: 'Arial, sans-serif',
         maxWidth: '600px',
-        margin: '20px auto',
         border: '1px solid #ccc',
         borderRadius: '8px',
         padding: '16px',

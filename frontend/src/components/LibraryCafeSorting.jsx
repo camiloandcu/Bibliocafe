@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 
 export function LibraryCafeSorting({ fields = [] }) {
   return (
-    <div>
+    <div style={{ maxWidth: '300px' }}>
       <label
         htmlFor='sortBy'
         style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
@@ -13,7 +13,6 @@ export function LibraryCafeSorting({ fields = [] }) {
         id='sortBy'
         name='sortBy'
         style={{
-          width: '100%',
           padding: '8px',
           border: '1px solid #ccc',
           borderRadius: '4px',
