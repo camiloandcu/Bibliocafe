@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 
-export function LibraryCafeFilter({ field }) {
+export function LibraryCafeFilter({ field, value, onChange }) {
   return (
     <div style={{ maxWidth: '300px' }}>
       <label
@@ -13,6 +13,8 @@ export function LibraryCafeFilter({ field }) {
         type='text'
         id={field}
         name={field}
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         style={{
           padding: '8px',
           border: '1px solid #ccc',
@@ -25,4 +27,6 @@ export function LibraryCafeFilter({ field }) {
 
 LibraryCafeFilter.propTypes = {
   field: PropTypes.string.isRequired,
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
 }
