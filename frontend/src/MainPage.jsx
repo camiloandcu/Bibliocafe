@@ -18,8 +18,6 @@ export function MainPage() {
 
   const libraryCafes = libraryCafesQuery.data ?? []
 
-  console.log(libraryCafes)
-
   return (
     <div>
       <CreateLibraryCafe />

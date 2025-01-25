@@ -1,6 +1,27 @@
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useState } from 'react'
+import { createLibraryCafe } from '../api/libraryCafe'
+
 export function CreateLibraryCafe() {
+  const [name, setName] = useState('')
+  const [location, setLocation] = useState('')
+  const [owner, setOwner] = useState('')
+  const [description, setDescription] = useState('')
+  
+  const queryClient = useQueryClient()
+  const createLibraryCafeMutation = useMutation({
+    mutationFn: () => createLibraryCafe({ name, location, owner, description }),
+    onSuccess: () => queryClient.invalidateQueries('libraryCafes'),
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    createLibraryCafeMutation.mutate()
+  }
+
   return (
     <form
+      onSubmit={handleSubmit}
       style={{
         fontFamily: 'Arial, sans-serif',
         maxWidth: '600px',
@@ -29,6 +50,8 @@ export function CreateLibraryCafe() {
             border: '1px solid #ccc',
             borderRadius: '4px',
           }}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
         />
       </div>
 
@@ -49,6 +72,8 @@ export function CreateLibraryCafe() {
             border: '1px solid #ccc',
             borderRadius: '4px',
           }}
+          value={location}
+          onChange={(e) => setLocation(e.target.value)}
         />
       </div>
 
@@ -69,6 +94,8 @@ export function CreateLibraryCafe() {
             border: '1px solid #ccc',
             borderRadius: '4px',
           }}
+          value={owner}
+          onChange={(e) => setOwner(e.target.value)}
         />
       </div>
 
@@ -89,50 +116,12 @@ export function CreateLibraryCafe() {
             border: '1px solid #ccc',
             borderRadius: '4px',
           }}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
         ></textarea>
       </div>
 
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='menu'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Menu Items (Comma-separated)
-        </label>
-        <input
-          type='text'
-          id='menu'
-          name='menu'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-        />
-      </div>
-
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='books'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Books (Comma-separated)
-        </label>
-        <input
-          type='text'
-          id='books'
-          name='books'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-        />
-      </div>
-
-      <button
+      <input
         type='submit'
         style={{
           backgroundColor: '#007BFF',
@@ -142,9 +131,17 @@ export function CreateLibraryCafe() {
           borderRadius: '4px',
           cursor: 'pointer',
         }}
-      >
-        Create
-      </button>
+        value={createLibraryCafeMutation.isPending ? 'Creating...' : 'Create'}
+        disabled={!name || !owner || createLibraryCafeMutation.isPending}
+      />
+      {createLibraryCafeMutation.isSuccess ? (
+        <>
+          <br />
+          <small style={{ color: 'green' }}>
+            Library Cafe created successfully!
+          </small>
+        </>
+      ) : null}
     </form>
   )
 }
