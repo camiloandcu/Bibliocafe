@@ -1,0 +1,35 @@
+name: Bibliocafe Frontend CI
+
+# Listen to events
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+# Job to run linter and build
+jobs:
+  lint-and-build:
+    runs-on: ubuntu-latest
+      strategy: 
+        matrix:
+          # Run tests on multiple node versions
+          node-version: [16.x, 18.x, 20.x]
+      defaults:
+        run:
+           working-directory: frontend/
+      steps:
+        - uses: actions/checkout@v3
+        - name: Use Node.js ${{ matrix.node-version }}
+          uses: actions/setup-node@v3
+          with:
+            node-version: ${{ matrix.node-version }}
+            cache: 'npm'
+        - name: Install dependencies
+          run: npm install
+        - name: Run linter 
+          run: npm run lint
+        - name: Build
+          run: npm run build
