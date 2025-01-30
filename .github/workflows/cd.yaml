@@ -36,7 +36,7 @@ jobs:
         uses: google-github-actions/deploy-cloudrun@v1
         with:
           service: bibliocafe-backend
-          image: ${{ secrets.DOCKERHUB_USERNAME }}/bibliocafe-backend:latest }}
+          image: ${{ secrets.DOCKERHUB_USERNAME }}/bibliocafe-backend:latest
           region: ${{ secrets.GOOGLECLOUD_REGION }}
       - name: Build and push frontend image
         uses: docker/build-push-action@v5
