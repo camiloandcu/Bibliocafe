@@ -5,6 +5,8 @@ import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import eslintPluginJsxA11y from 'eslint-plugin-jsx-a11y'
+import chakraUiPlugin from 'eslint-plugin-chakra-ui'
+import { chakra } from '@chakra-ui/react'
 
 export default [
   { ignores: ['dist', 'vite.config.js'] },
@@ -32,6 +34,7 @@ export default [
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       ...eslintPluginJsxA11y.configs.recommended.rules,
+      'react/prop-types': 'off',
     },
   },
   eslintConfigPrettier

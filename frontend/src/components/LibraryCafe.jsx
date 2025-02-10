@@ -1,7 +1,6 @@
 import { Button, Card, Text } from "@chakra-ui/react"
-import PropTypes from 'prop-types'
 
-export function LibraryCafe({ name, location, description, owner }) {
+export function LibraryCafe({ name, description, owner }) {
   return (
     <Card.Root size='sm'>
       <Card.Body gap="2">
@@ -18,9 +17,3 @@ export function LibraryCafe({ name, location, description, owner }) {
   )
 }
 
-LibraryCafe.propTypes = {
-  name: PropTypes.string.isRequired,
-  location: PropTypes.string,
-  owner: PropTypes.string.isRequired,
-  description: PropTypes.string,
-}

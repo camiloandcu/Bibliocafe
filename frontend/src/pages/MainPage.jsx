@@ -34,7 +34,6 @@ export function MainPage() {
         </div>
         <br />
         <LibraryCafeSorting
-          fields={['createdAt', 'updatedAt']}
           value={sortBy}
           onChange={(value) => setSortBy(value)}
           orderValue={sortOrder}

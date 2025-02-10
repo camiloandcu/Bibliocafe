@@ -1,59 +1,76 @@
-import PropTypes from 'prop-types'
+import {
+  Box,
+  createListCollection,
+  Grid,
+  GridItem,
+  SelectContent,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValueText,
+} from '@chakra-ui/react'
+import { SelectRoot } from '@/components/ui/select'
 
 export function LibraryCafeSorting({
-  fields = [],
   value,
   onChange,
   orderValue,
   onOrderChange,
 }) {
   return (
-    <div style={{ maxWidth: '300px' }}>
-      <label
-        htmlFor='sortBy'
-        style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-      >
-        Sort by
-      </label>
-      <select
-        id='sortBy'
-        name='sortBy'
-        style={{
-          padding: '8px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-        }}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-      >
-        {fields.map((field) => (
-          <option key={field} value={field}>
-            {field.charAt(0).toUpperCase() + field.slice(1)}
-          </option>
-        ))}
-      </select>
-      <select
-        name='sortOrder'
-        id='sortOrder'
-        value={orderValue}
-        onChange={(e) => onOrderChange(e.target.value)}
-        style={{
-          padding: '8px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-        }}
-      >
-        <option value={'ascending'}>ascending</option>
-        <option value={'descending'}>descending</option>
-      </select>
-    </div>
+    <Grid maxW='sm' templateColumns='repeat(3,1fr)' gap='2'>
+      <GridItem colSpan={2}>
+        <SelectRoot
+          defaultValue={[value]}
+          onValueChange={({ value }) => onChange(value)}
+          collection={sortingCollection}
+        >
+          <SelectLabel>Sort by:</SelectLabel>
+          <SelectTrigger>
+            <SelectValueText />
+          </SelectTrigger>
+          <SelectContent>
+            {sortingCollection.items.map((field) => (
+              <SelectItem item={field} key={field.value}>
+                {field.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
+      </GridItem>
+      <GridItem colSpan={1}>
+        <SelectRoot
+          defaultValue={[orderValue]}
+          onValueChange={({ value }) => onOrderChange(value)}
+          collection={orderCollection}
+        >
+          <SelectLabel>Order:</SelectLabel>
+          <SelectTrigger>
+            <SelectValueText />
+          </SelectTrigger>
+          <SelectContent>
+            {orderCollection.items.map((order) => (
+              <SelectItem item={order} key={order.value}>
+                {order.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
+      </GridItem>
+    </Grid>
   )
 }
 
-LibraryCafeSorting.propTypes = {
-  fields: PropTypes.arrayOf(PropTypes.string).isRequired,
-  value: PropTypes.string.isRequired,
-  onChange: PropTypes.func.isRequired,
-  orderValue: PropTypes.string.isRequired,
-  onOrderChange: PropTypes.func.isRequired,
-}
+const sortingCollection = createListCollection({
+  items: [
+    { label: 'Newest', value: 'createdAt' },
+    { label: 'Last updated', value: 'updatedAt' },
+  ],
+})
+
+const orderCollection = createListCollection({
+  items: [
+    { label: 'Ascending', value: 'ascending' },
+    { label: 'Descending', value: 'descending' },
+  ],
+})

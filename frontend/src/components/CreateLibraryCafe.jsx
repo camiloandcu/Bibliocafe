@@ -14,16 +14,19 @@ export function CreateLibraryCafe() {
   const queryClient = useQueryClient()
   const createLibraryCafeMutation = useMutation({
     mutationFn: () => createLibraryCafe({ name, location, owner, description }),
-    onSuccess: () => queryClient.invalidateQueries('libraryCafes'),
+    onSuccess: () => {
+      queryClient.invalidateQueries('libraryCafes')
+      toaster.create({
+        title: 'LibraryCafe created',
+        description: 'You have successfully created a LibraryCafe',
+        type: 'success',
+      })
+    },
   })
 
   const handleSubmit = (e) => {
     e.preventDefault()
     createLibraryCafeMutation.mutate()
-    toaster.create({
-      title: 'LibraryCafe created',
-      description: 'You have successfully created a LibraryCafe',
-    })
   }
 
   return (
@@ -62,7 +65,7 @@ export function CreateLibraryCafe() {
             </Field>
           </Fieldset.Content>
 
-          <Button type='submit' isLoading={createLibraryCafeMutation.isLoading}>
+          <Button variant='surface' type='submit' loading={createLibraryCafeMutation.isPending} loadingText='Creating...'>
             Create
           </Button>
         </Fieldset.Root>
