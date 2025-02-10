@@ -1,13 +1,20 @@
+import { Button, Card, Text } from "@chakra-ui/react"
 import PropTypes from 'prop-types'
 
 export function LibraryCafe({ name, location, description, owner }) {
   return (
-    <article style={{ fontFamily: 'Arial, sans-serif', maxWidth: '600px', border: '1px solid #ccc', borderRadius: '8px', padding: '16px', backgroundColor: '#f9f9f9' }}>
-      <h2 style={{ color: '#333' }}>{name}</h2>
-      {location && <p><strong>Location:</strong> {location}</p>}
-      <p><strong>Owner:</strong> {owner}</p>
-      {description && <p><strong>Description:</strong> {description}</p>}
-    </article>
+    <Card.Root size='sm'>
+      <Card.Body gap="2">
+        <Card.Title mt="2">{name}</Card.Title>
+        <Card.Description>{description}</Card.Description>
+        <Text textStyle="sm" fontWeight="medium" letterSpacing="tight" mt="2">
+          By {owner}
+        </Text>
+      </Card.Body>
+      <Card.Footer>
+        <Button variante="surface">Visit</Button>
+      </Card.Footer>
+    </Card.Root>
   )
 }
 

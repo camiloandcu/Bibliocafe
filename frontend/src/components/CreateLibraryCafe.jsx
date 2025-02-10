@@ -1,13 +1,16 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useState } from 'react'
 import { createLibraryCafe } from '../api/libraryCafe'
+import { Box, Button, Fieldset, Input, Stack, Textarea } from '@chakra-ui/react'
+import { toaster, Toaster } from '@/components/ui/toaster'
+import { Field } from '@/components/ui/field'
 
 export function CreateLibraryCafe() {
   const [name, setName] = useState('')
   const [location, setLocation] = useState('')
   const [owner, setOwner] = useState('')
   const [description, setDescription] = useState('')
-  
+
   const queryClient = useQueryClient()
   const createLibraryCafeMutation = useMutation({
     mutationFn: () => createLibraryCafe({ name, location, owner, description }),
@@ -17,131 +20,54 @@ export function CreateLibraryCafe() {
   const handleSubmit = (e) => {
     e.preventDefault()
     createLibraryCafeMutation.mutate()
+    toaster.create({
+      title: 'LibraryCafe created',
+      description: 'You have successfully created a LibraryCafe',
+    })
   }
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      style={{
-        fontFamily: 'Arial, sans-serif',
-        maxWidth: '600px',
-        border: '1px solid #ccc',
-        borderRadius: '8px',
-        padding: '16px',
-        backgroundColor: '#f9f9f9',
-      }}
-    >
-      <h1 style={{ color: '#333' }}>Create a Library Cafe</h1>
+    <Box maxW='md' borderWidth='1px' borderRadius='xl' p='4'>
+      <form onSubmit={handleSubmit}>
+        <Fieldset.Root>
+          <Stack>
+            <Fieldset.Legend >Create a LibraryCafe</Fieldset.Legend>
+            <Fieldset.HelperText>
+              Provide the LibraryCafe details below
+            </Fieldset.HelperText>
+          </Stack>
 
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='name'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Name
-        </label>
-        <input
-          type='text'
-          id='name'
-          name='name'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-        />
-      </div>
+          <Fieldset.Content>
+            <Field label='Name'>
+              <Input value={name} onChange={(e) => setName(e.target.value)} />
+            </Field>
 
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='location'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Location
-        </label>
-        <input
-          type='text'
-          id='location'
-          name='location'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-          value={location}
-          onChange={(e) => setLocation(e.target.value)}
-        />
-      </div>
+            <Field label='Location'>
+              <Input
+                value={location}
+                onChange={(e) => setLocation(e.target.value)}
+              />
+            </Field>
 
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='owner'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Owner
-        </label>
-        <input
-          type='text'
-          id='owner'
-          name='owner'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-          value={owner}
-          onChange={(e) => setOwner(e.target.value)}
-        />
-      </div>
+            <Field label='Owner'>
+              <Input value={owner} onChange={(e) => setOwner(e.target.value)} />
+            </Field>
 
-      <div style={{ marginBottom: '16px' }}>
-        <label
-          htmlFor='description'
-          style={{ display: 'block', marginBottom: '8px', fontWeight: 'bold' }}
-        >
-          Description
-        </label>
-        <textarea
-          id='description'
-          name='description'
-          rows='4'
-          style={{
-            width: '100%',
-            padding: '8px',
-            border: '1px solid #ccc',
-            borderRadius: '4px',
-          }}
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></textarea>
-      </div>
+            <Field label='Description'>
+              <Textarea
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                resize='none'
+              />
+            </Field>
+          </Fieldset.Content>
 
-      <input
-        type='submit'
-        style={{
-          backgroundColor: '#007BFF',
-          color: '#fff',
-          padding: '10px 15px',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer',
-        }}
-        value={createLibraryCafeMutation.isPending ? 'Creating...' : 'Create'}
-        disabled={!name || !owner || createLibraryCafeMutation.isPending}
-      />
-      {createLibraryCafeMutation.isSuccess ? (
-        <>
-          <br />
-          <small style={{ color: 'green' }}>
-            Library Cafe created successfully!
-          </small>
-        </>
-      ) : null}
-    </form>
+          <Button type='submit' isLoading={createLibraryCafeMutation.isLoading}>
+            Create
+          </Button>
+        </Fieldset.Root>
+        <Toaster />
+      </form>
+    </Box>
   )
 }

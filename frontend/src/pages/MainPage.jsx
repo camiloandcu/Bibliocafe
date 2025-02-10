@@ -1,10 +1,11 @@
-import { LibraryCafeList } from './components/LibraryCafeList'
-import { CreateLibraryCafe } from './components/CreateLibraryCafe'
-import { LibraryCafeFilter } from './components/LibraryCafeFilter'
-import { LibraryCafeSorting } from './components/LibraryCafeSorting'
-import { getLibraryCafes } from './api/libraryCafe'
+import { LibraryCafeList } from '@/components/LibraryCafeList'
+import { CreateLibraryCafe } from '@/components/CreateLibraryCafe'
+import { LibraryCafeFilter } from '@/components/LibraryCafeFilter'
+import { LibraryCafeSorting } from '@/components/LibraryCafeSorting'
+import { getLibraryCafes } from '@/api/libraryCafe'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
+import { Container } from '@chakra-ui/react'
 
 export function MainPage() {
   const [owner, setOwner] = useState('')
@@ -19,7 +20,7 @@ export function MainPage() {
   const libraryCafes = libraryCafesQuery.data ?? []
 
   return (
-    <div>
+    <Container>
       <CreateLibraryCafe />
       <br />
       <div>
@@ -42,6 +43,6 @@ export function MainPage() {
       </div>
       <br />
       <LibraryCafeList libraryCafes={libraryCafes} />
-    </div>
+    </Container>
   )
 }
