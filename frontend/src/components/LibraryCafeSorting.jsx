@@ -1,5 +1,4 @@
 import {
-  Box,
   createListCollection,
   Grid,
   GridItem,
@@ -38,6 +37,7 @@ export function LibraryCafeSorting({
           </SelectContent>
         </SelectRoot>
       </GridItem>
+
       <GridItem colSpan={1}>
         <SelectRoot
           defaultValue={[orderValue]}

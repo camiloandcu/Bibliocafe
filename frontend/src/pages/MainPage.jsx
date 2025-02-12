@@ -6,6 +6,7 @@ import { getLibraryCafes } from '@/api/libraryCafe'
 import { useQuery } from '@tanstack/react-query'
 import { useState } from 'react'
 import { Container } from '@chakra-ui/react'
+import Navbar from '@/components/Navbar'
 
 export function MainPage() {
   const [owner, setOwner] = useState('')
@@ -20,7 +21,8 @@ export function MainPage() {
   const libraryCafes = libraryCafesQuery.data ?? []
 
   return (
-    <Container>
+    <Container py='5'>
+      <Navbar />
       <CreateLibraryCafe />
       <br />
       <div>

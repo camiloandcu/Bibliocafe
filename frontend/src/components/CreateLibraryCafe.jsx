@@ -30,13 +30,15 @@ export function CreateLibraryCafe() {
   }
 
   return (
-    <Box maxW='md' borderWidth='1px' borderRadius='xl' p='4'>
+    <Box maxW='md' borderWidth='1px' borderRadius='md' p='5'>
       <form onSubmit={handleSubmit}>
         <Fieldset.Root>
           <Stack>
-            <Fieldset.Legend >Create a LibraryCafe</Fieldset.Legend>
-            <Fieldset.HelperText>
-              Provide the LibraryCafe details below
+            <Fieldset.Legend textStyle='lg'>
+              Create a LibraryCafe!
+            </Fieldset.Legend>
+            <Fieldset.HelperText textStyle='sm'>
+              Provide your LibraryCafe details down below
             </Fieldset.HelperText>
           </Stack>
 
@@ -65,7 +67,12 @@ export function CreateLibraryCafe() {
             </Field>
           </Fieldset.Content>
 
-          <Button variant='surface' type='submit' loading={createLibraryCafeMutation.isPending} loadingText='Creating...'>
+          <Button
+            variant='surface'
+            type='submit'
+            loading={createLibraryCafeMutation.isPending}
+            loadingText='Creating...'
+          >
             Create
           </Button>
         </Fieldset.Root>

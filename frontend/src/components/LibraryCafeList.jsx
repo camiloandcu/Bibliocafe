@@ -1,21 +1,15 @@
-import { Fragment } from 'react'
-import PropTypes from 'prop-types'
-import { LibraryCafe } from './LibraryCafe'
+import { LibraryCafeCard } from './LibraryCafeCard'
+import { Grid, GridItem } from '@chakra-ui/react'
 
 export function LibraryCafeList({ libraryCafes = [] }) {
   return (
-    <div>
+    <Grid templateColumns='repeat(3, 1fr)' templateRows="repeat(10,1fr)" gap="3">
       {libraryCafes.map((libraryCafe) => (
-        <Fragment key={libraryCafe._id}>
-          <LibraryCafe {...libraryCafe} />
-          <hr />
-        </Fragment>
+        <GridItem key={libraryCafe._id} colSpan={1} rowSpan={2}>
+          <LibraryCafeCard {...libraryCafe} />
+        </GridItem>
       ))}
-    </div>
+    </Grid>
   )
 }
 
-LibraryCafeList.propTypes = {
-  libraryCafes: PropTypes.arrayOf(PropTypes.shape(LibraryCafe.propTypes))
-    .isRequired,
-}

@@ -1,8 +1,8 @@
 import { Button, Card, Text } from "@chakra-ui/react"
 
-export function LibraryCafe({ name, description, owner }) {
+export function LibraryCafeCard({ name, description, owner }) {
   return (
-    <Card.Root size='sm'>
+    <Card.Root size="lg" h="full" w="full">
       <Card.Body gap="2">
         <Card.Title mt="2">{name}</Card.Title>
         <Card.Description>{description}</Card.Description>
